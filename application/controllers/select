@@ -1,0 +1,16 @@
+        select  
+	`stx_produk`.`produk_id` AS `produk_id`,
+        `stx_produk`.`produk_nama` AS `produk_nama`,
+        `stx_produk`.`produk_masterbox` AS `produk_masterbox`,
+        `stx_produk`.`produk_mesin` AS `produk_mesin`,	
+		`trx_stfg`.`stfg_total` AS `stfg_total`,
+		(sum (`trx_master`.`master_display` )) AS `Total_Display`,
+        (`trx_stfg`.`stfg_total` *  `stx_produk`.`produk_masterbox` * `stx_produk`.`produk_mesin` ) AS `Total_Pembayaran`
+        from ((stx_produk
+        join trx_master )
+        join trx_stfg )
+        where (( `stx_produk`.`produk_id` =  `trx_master`.`master_produk_id` )
+        AND ( `trx_master`.`master_shift` = `trx_stfg`.`stfg_shift` )
+        And ( `trx_master`.`master_tgllaporan`= `trx_stfg`.`stfg_tgllaporan`) )
+        
+        

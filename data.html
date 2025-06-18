@@ -1,0 +1,17 @@
+<tr class="jdr1" id="rowid">
+                    <td><span class="btn btn-sm btn-default">$sr</span><input type="hidden" name="count[]" value="Math.floor((Math.random() * 10000) + 1)"></td>
+                    <td><select class="form-control input-sm select2" name="stfg_produk_id[]" id="stfg_produk_id">
+                    <option>--- Pilih Produk ---</option> <?php foreach($produk as $g){ ?>                                        
+                    <option value=" <?php echo $g['produk_id']; ?>" <?php if($stfg_produk_id==$g['produk_id']) echo "Selected" ?>><?php echo $g['produk_nama']; ?> </option><?php }?></select></td>
+                    <td><input type="text" id ="stfg_mbox1" class="form-control input-sm " name="stfg_mbox1[]" value="0"  placeholder="" required="" /></td>
+                    <td><input type="text" id ="stfg_mbox2" class="form-control input-sm " name="stfg_mbox2[]" value="0"  placeholder="" required="" /></td>
+                    '\<td><input type="text" id ="stfg_mbox3" class="form-control input-sm " name="stfg_mbox3[]"  placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_mbox4" class="form-control input-sm " name="stfg_mbox4[]"  placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_mbox5" class="form-control input-sm " name="stfg_mbox5[]"  placeholder="" required="" /></td>
+                    <td><input type="text" id ="stfg_mbox6" class="form-control input-sm " name="stfg_mbox6[]"  placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_mbox7" class="form-control input-sm " name="stfg_mbox7[]"  placeholder="" required="" /></td>
+                    <td><input type="text" id ="stfg_mbox8" class="form-control input-sm " name="stfg_mbox8[]" placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_mbox9" class="form-control input-sm " name="stfg_mbox9[]" placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_mbox10" class="form-control input-sm " name="stfg_mbox10[]"  placeholder="" required="" /></td> 
+                    <td><input type="text" id ="stfg_rijek" class="form-control input-sm " name="stfg_rijek[]"  placeholder="" required="" /></td> 
+                    </tr>

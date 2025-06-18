@@ -1,0 +1,113 @@
+       <script type="text/javascript">
+        function sum() {
+          var txtFirstNumberValue = document.getElementById('perbantuan_mulai').value;
+          var txtSecondNumberValue = document.getElementById('perbantuan_selesai').value;
+          var txtThirthNumberValue = document.getElementById('perbantuan_istirahat').value;
+          var jam_first = parseInt(txtFirstNumberValue.substring(0,2)) * 60;
+          var jam_second = parseInt(txtSecondNumberValue.substring(0,2)) * 60;
+          var menit_first = parseInt(txtFirstNumberValue.substring(3,5));
+          var menit_second = parseInt(txtSecondNumberValue.substring(3,5));
+          var hasil_first = jam_first + menit_first;
+          var hasil_second = jam_second + menit_second;
+          var selisih = hasil_second - hasil_first - txtThirthNumberValue;
+          var jam = Math.floor(selisih / 60);
+          var menit = selisih - (jam * 60);
+
+          if (!isNaN(jam || menit)) {
+             document.getElementById('perbantuan_totalmenit').value = selisih;
+          }
+        }
+        </script>
+
+  <?php 
+    $error=$this->session->flashdata('message');
+    if (!empty($error)) {
+      foreach ($error as $key => $value) {
+  ?>
+    <div class="alert alert-danger alert-dismissible">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+      <?php echo $error[$key]; ?>
+    </div>
+  <?php
+        echo ""; 
+      }   
+    }
+  ?>
+
+<div class="box box-default">
+  <div class="box-header with-border">
+    <h3 class="box-title">MANUAL PERBANTUAN FORM</h3>
+
+    <div class="box-tools pull-right">
+      <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+      <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+    </div>
+  </div>
+
+<div class="box-body">
+        <form action="<?php echo $action; ?>" method="post">
+            <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="varchar">ID Transaksi<?php echo form_error('perbantuan_master_id') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_master_id" id="perbantuan_master_id" placeholder="Perbantuan Master Id" value="<?php echo $perbantuan_master_id; ?>" required/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="char">ID Karyawan<?php echo form_error('perbantuan_karyawan_id') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_karyawan_id" id="perbantuan_karyawan_id" placeholder="Perbantuan Karyawan Id" value="<?php echo $perbantuan_karyawan_id; ?>" required/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="varchar">Nama Produk <?php echo form_error('perbantuan_produk_id') ?></label>
+            <div class="col-sm-9 col-xs-12">
+                  <?php echo form_dropdown('perbantuan', $perbantuan, $perbantuan_kategori);  ?> 
+                </div>
+        </div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="int">Shift <?php echo form_error('perbantuan_shift') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <select class="form-control input-sm select2" name="perbantuan_shift">
+                <?php 
+                foreach($shift as $g){?>
+                
+                <option value="<?php echo $g['shift_id']; ?>" <?php if($perbantuan_shift==$g['shift_id']) echo "Selected" ?>><?php echo $g['shift_nama']; ?></option>
+                <?php } 
+                ?>
+              </select>
+        </div></div>
+
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="time">Waktu Mulai <?php echo form_error('perbantuan_mulai') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_mulai" id="perbantuan_mulai" placeholder="Perbantuan Mulai" value="<?php if(!empty($perbantuan_mulai)) echo $perbantuan_mulai; else echo '07:30'; ?>"  onkeyup="sum();" required/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="time">Waktu Selesai <?php echo form_error('perbantuan_selesai') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_selesai" id="perbantuan_selesai" placeholder="Perbantuan Selesai" value="<?php if(!empty($perbantuan_selesai)) echo $perbantuan_selesai; else echo '17:00'; ?>"  onkeyup="sum();"/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="int">Waktu Istirahat <?php echo form_error('perbantuan_istirahat') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_istirahat" id="perbantuan_istirahat" placeholder="Perbantuan Istirahat" value="<?php if(!empty($perbantuan_istirahat)) echo $perbantuan_istirahat; else echo '0'; ?>"  onkeyup="sum();" required/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="int">Total Kerja <?php echo form_error('perbantuan_totalmenit') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_totalmenit" id="perbantuan_totalmenit" placeholder="Perbantuan Totalmenit" value="<?php echo $perbantuan_totalmenit; ?>" onkeyup="sum();" readonly/>
+        </div></div>
+	    <div class="form-group">
+            <label class="col-sm-3 col-xs-12 control-label"  for="date">Laporan <?php echo form_error('perbantuan_tgllaporan') ?></label>
+             <div class="col-sm-9 col-xs-12">
+            <input type="text" class="form-control" name="perbantuan_tgllaporan" id="datepicker" placeholder="Perbantuan Tgllaporan" value="<?php echo $perbantuan_tgllaporan; ?>" required />
+        </div></div>
+
+          <div class="col-md-12" style="text-align: right;">
+    <hr>
+      <input type="hidden" name="" value="<?php echo $perbantuan_id; ?>" />       
+      <a href="<?php echo site_url('trx_perbantuan') ?>" class="btn btn-danger">Cancel</a>
+      <button type="submit" class="btn btn-primary"><?php echo $button ?></button> 
+    </div>
+	    
+	</form>
+</div>
